@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+
+{% block title %}Use Item{% endblock %}
+
+{% block content %}
+<h2>Use Item</h2>
+<p>You are about to use the item: {{ item.name }}</p>
+<form method="post">
+    <label for="quantity_used">Quantity to Use:</label>
+    <input type="number" name="quantity_used" id="quantity_used" min="1" max="{{ item.quantity }}" required>
+    <button type="submit">Submit</button>
+</form>
+{% endblock %}
