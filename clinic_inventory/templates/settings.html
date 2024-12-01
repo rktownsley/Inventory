@@ -1,0 +1,60 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h1>Settings</h1>
+
+<!-- Flash Messages Displayed Between Settings and Locations -->
+{% with messages = get_flashed_messages(with_categories=true) %}
+    {% if messages %}
+        <div class="alert-container">
+            {% for category, message in messages %}
+                <div class="alert alert-{{ category }} alert-dismissible fade show" role="alert">
+                    {{ message }}
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+            {% endfor %}
+        </div>
+    {% endif %}
+{% endwith %}
+
+<!-- Locations Section -->
+<h3>Locations</h3>
+<ul>
+    {% for location in locations %}
+    <li>{{ location['value'] }}  <!-- Assuming 'value' is the column that holds the location name -->
+        <!-- Add delete button, using location['value'] to uniquely identify each location -->
+        <form method="POST" action="{{ url_for('delete_location', location_value=location['value']) }}" style="display:inline;">
+            <button type="submit" class="btn btn-danger btn-sm">Delete</button>
+        </form>
+    </li>
+    {% endfor %}
+</ul>
+
+<!-- Form to Add Location -->
+<form method="POST">
+    <input type="hidden" name="type" value="location">
+    <input type="text" name="value" placeholder="Add Location" class="form-control mb-2" required>
+    <button type="submit" class="btn btn-primary">Add</button>
+</form>
+
+<!-- Categories Section -->
+<h3>Categories</h3>
+<ul>
+    {% for category in categories %}
+    <li>{{ category['value'] }}  <!-- Assuming 'value' is the column that holds the category name -->
+        <!-- Add delete button, using category['value'] to uniquely identify each category -->
+        <form method="POST" action="{{ url_for('delete_category', category_value=category['value']) }}" style="display:inline;">
+            <button type="submit" class="btn btn-danger btn-sm">Delete</button>
+        </form>
+    </li>
+    {% endfor %}
+</ul>
+
+<!-- Form to Add Category -->
+<form method="POST">
+    <input type="hidden" name="type" value="category">
+    <input type="text" name="value" placeholder="Add Category" class="form-control mb-2" required>
+    <button type="submit" class="btn btn-primary">Add</button>
+</form>
+
+{% endblock %}
