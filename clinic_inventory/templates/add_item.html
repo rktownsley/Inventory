@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+{% block content %}
+<h1>Add Item</h1>
+<form method="POST">
+    <div class="mb-3">
+        <label>Name</label>
+        <input type="text" name="name" class="form-control" required>
+    </div>
+    <div class="mb-3">
+        <label>Quantity</label>
+        <input type="number" name="quantity" class="form-control" required>
+    </div>
+    <div class="mb-3">
+        <label>Location</label>
+        <select name="location" class="form-control">
+            {% for location in locations %}
+            <option>{{ location[0] }}</option>
+            {% endfor %}
+        </select>
+    </div>
+    <div class="mb-3">
+        <label>Category</label>
+        <select name="category" class="form-control">
+            {% for category in categories %}
+            <option>{{ category[0] }}</option>
+            {% endfor %}
+        </select>
+    </div>
+    <div class="mb-3">
+        <label>Description</label>
+        <textarea name="description" class="form-control"></textarea>
+    </div>
+    <button type="submit" class="btn btn-primary">Add Item</button>
+</form>
+{% endblock %}
